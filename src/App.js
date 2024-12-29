@@ -31,18 +31,16 @@ export default function App() {
     const investedAmount = principal * totalMonths;
 
     // Future value (Total Value)
-    const futureValue =
-      principal *
-      ((Math.pow(1 + monthlyRate, totalMonths) - 1) / monthlyRate) *
+    const futureValue = principal * ((Math.pow(1 + monthlyRate, totalMonths) - 1) / monthlyRate) *
       (1 + monthlyRate);
 
     // Estimated returns
     const estimatedReturn = futureValue - investedAmount;
 
     // Update state
-    setTotalInvestment(investedAmount.toFixed(2));
-    setTotalReturn(estimatedReturn.toFixed(2));
-    setTotalValue(futureValue.toFixed(2));
+    setTotalInvestment(investedAmount);
+    setTotalReturn(estimatedReturn);
+    setTotalValue(futureValue);
   };
 
   const calculateLumpsum = (principal, rate, duration) => {
@@ -55,8 +53,8 @@ export default function App() {
     const interstEarned = futureValue - principal
 
     setTotalInvestment(principal)
-    setTotalReturn(interstEarned.toFixed(2))
-    setTotalValue(futureValue.toFixed(2))
+    setTotalReturn(interstEarned)
+    setTotalValue(futureValue)
 
   }
 
@@ -111,7 +109,7 @@ export default function App() {
                   </div>
  
                  <div className="bg-blue-100 p-1 px-2 min-w-[80px] rounded-md font-semibold text-blue-700 flex justify-end">
-                   ₹ <span className="ml-2">{monthlyInvestment}</span>
+                   ₹ <span className="ml-2">{monthlyInvestment.toLocaleString("en-IN")}</span>
                  </div>
                </div>
  
@@ -120,6 +118,8 @@ export default function App() {
                    value={monthlyInvestment / 10000}
                    aria-label="Default"
                    onChange={handleMonthlyInvestmentChange} // Updated handler
+                   min={0}
+                   max={1000} // 1 crore divided by 10,000                 
                  />
                </div>
              </div>
@@ -138,6 +138,8 @@ export default function App() {
                <div className="mt-4">
                  <Slider
                    value={interestRate}
+                   min={0} // Minimum value
+                   max={30} // Maximum value
                    aria-label="Default"
                    onChange={handleInterestRateChange} // Updated handler
                  />
@@ -167,7 +169,10 @@ export default function App() {
                  <div className="text-md">Invested Amount</div>
  
                  <div className="p-1 px-2 min-w-[80px] rounded-md font-semibold flex justify-end">
-                   ₹ <span className="mr-1">{totalInvestment}</span>
+                   ₹ <span className="mr-1">
+                    {/* {totalInvestment.toLocaleString("en-IN")} */}
+                    {parseFloat(totalInvestment.toFixed(0)).toLocaleString("en-IN")}
+                    </span>
                  </div>
                </div>
              </div>
@@ -177,7 +182,10 @@ export default function App() {
                  <div className="">Est. Return</div>
  
                  <div className="p-1 px-2 min-w-[80px] rounded-md font-semibold flex justify-end">
-                   ₹ <span className="mr-1">{totalReturn}</span>
+                   ₹ <span className="mr-1">
+                    {/* {totalReturn.toLocaleString("en-IN")} */}
+                    {parseFloat(totalReturn.toFixed(0)).toLocaleString("en-IN")}
+                    </span>
                  </div>
                </div>
              </div>
@@ -187,7 +195,10 @@ export default function App() {
                  <div className="">Total Value</div>
  
                  <div className="p-1 px-2 min-w-[80px] rounded-md font-semibold flex justify-end">
-                   ₹ <span className="mr-1">{totalValue}</span>
+                   ₹ <span className="mr-1">
+                    {/* {totalValue.toLocaleString("en-IN")} */}
+                    {parseFloat(totalValue.toFixed(0)).toLocaleString("en-IN")}
+                    </span>
                  </div>
                </div>
              </div>
